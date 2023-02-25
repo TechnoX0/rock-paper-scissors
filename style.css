@@ -1,0 +1,76 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#winner {
+    position: absolute;
+    top: 20%;
+    left: calc(50% - 4em);
+    width: 8em;
+    font-size: 3rem;
+    text-align: center;
+    border-radius: 1em;
+    background: #343A40;
+    color: white;
+}
+
+#rps-ui {
+    display: grid;
+    place-items: center;
+    background: #212529;
+    height: 100vh;
+    color: white;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+#display {
+    display: flex;
+    justify-content: space-around;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+    font-size: 2em;
+    gap: 1.5rem;
+}
+
+.pick {
+    font-size: 4rem;
+}
+
+.score {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.user div {
+    text-align: center;
+}
+
+#buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    width: 2em;
+    height: 2em;
+    font-size: 4rem;
+    background: #495057;
+    border-radius: .7rem;
+    border: none;
+    transition: background .3s;
+}
+
+.btn:hover {
+    background: #343A40;
+    cursor: pointer;
+}

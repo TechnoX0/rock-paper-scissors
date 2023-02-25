@@ -1,43 +1,57 @@
-let playerScore = computerScore = 0;
+const BUTTONS = document.querySelectorAll(".btn")
+const PLAYER_PICK = document.querySelector("#player > .pick")
+const PLAYER_SCORE = document.querySelector("#player > .score")
+const COMPUTER_PICK = document.querySelector("#computer > .pick")
+const COMPUTER_SCORE = document.querySelector("#computer > .score")
+const WIN_DISPLAY = document.getElementById("winner")
+let plScore = comScore = 0, win = false;
 
 function getComputerChoice() {
     let choice = Math.floor(Math.random() * 3)+1;
     switch(choice) {
         case 1:
-            return 'Rock'
+            return 'rock'
         case 2:
-            return 'Paper'
+            return 'paper'
         case 3:
-            return 'Scissor'
+            return 'scissor'
         default:
             break
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    let pSelect = playerSelection.toUpperCase()
-    console.log(`Player: ${pSelect}\nComputer: ${computerSelection}`)
-    if(pSelect == computerSelection.toUpperCase()) {
+function playRound(el) {
+    let pSelect = el.dataset.hand
+    let computerSelection = getComputerChoice()
+    
+    if(pSelect == computerSelection) {
         return 'It\'s a draw!'
-    } else if(pSelect == 'ROCK' && computerSelection == 'Scissor' ||
-        pSelect == 'PAPER' && computerSelection == 'Rock' ||
-        pSelect == 'SCISSOR' && computerSelection == 'Paper') {
-        playerScore++
+    } else if(pSelect == 'rock' && computerSelection == 'scissor' ||
+        pSelect == 'paper' && computerSelection == 'sock' ||
+        pSelect == 'scissor' && computerSelection == 'paper') {
+        plScore++
+        PLAYER_SCORE.innerText = `Player: ${plScore}`
         return `You win! ${pSelect} beats ${computerSelection}.`
     } else {
-        computerScore++
+        comScore++
+        COMPUTER_SCORE.innerText = `Computer: ${comScore}`
         return `You lost! ${pSelect} beats ${computerSelection}.`
     }
 }
 
-function game() {
-    let score;
-    for(let i = 0; i < 5; i++) {
-        let playerChoice = prompt('Enter you choice: ')
-        playRound(playerChoice, getComputerChoice())
+function game(el) {
+    if(win) {
+        return;
     }
-    playerScore > computerScore ? console.log(`Player wins with ${playerScore} points!`) : console.log(`Computer wins with ${computerScore} points!`)
-    playerScore = computerScore = 0
+    let result = playRound(el)
+    console.log(result)
+    if(plScore >= 5) {
+        WIN_DISPLAY.innerText = "Player Won!"
+        win = true
+    } else if(comScore >= 5) {
+        WIN_DISPLAY.innerText = "Computer Won!"
+        win = true
+    }
 }
 
-game()
+BUTTONS.forEach(el => el.addEventListener("click", function(){game(el)}))
